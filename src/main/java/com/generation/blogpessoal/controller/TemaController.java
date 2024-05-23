@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.generation.blogpessoal.model.Postagem;
 import com.generation.blogpessoal.model.Tema;
 import com.generation.blogpessoal.repository.TemaRepository;
 
@@ -44,10 +46,16 @@ public class TemaController {
 	}
 	
 	@GetMapping("/descricao/{descricao}")
-	public ResponseEntity<List<Tema>> getByTema(@RequestParam String descricao) {
+	public ResponseEntity<List<Tema>> getByTema(@PathVariable String descricao) {
 		return ResponseEntity.ok(temaRepository.findAllByDescricaoContainingIgnoreCase(descricao));
 	}
 	
+	@PutMapping
+	public ResponseEntity<Tema> putPostagem(@Valid @RequestBody Tema tema){
+		return temaRepository.findById(tema.getId()).map(response -> ResponseEntity.status(HttpStatus.OK)
+				.body(temaRepository.save(tema)))
+				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+	}
 	
 	@PostMapping
 	public ResponseEntity<Tema> postTema(@Valid @RequestBody Tema tema){

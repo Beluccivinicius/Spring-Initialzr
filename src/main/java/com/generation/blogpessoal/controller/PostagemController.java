@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +50,14 @@ public class PostagemController {
 	@GetMapping("titulo/{titulo}")
 	public ResponseEntity<List<Postagem>> getByTitulo(@PathVariable String titulo){
 		return ResponseEntity.ok(postagemRepository.findAllByTituloContainingIgnoreCase(titulo));
+	}
+	
+	@PutMapping
+	public ResponseEntity<Postagem> putPostagem(@Valid @RequestBody Postagem postagem){
+		return postagemRepository.findById(postagem.getId())
+				.map(response -> ResponseEntity.status(HttpStatus.OK)
+					.body(postagemRepository.save(postagem)))
+				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 	
 	@PostMapping
