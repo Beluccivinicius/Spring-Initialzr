@@ -1,16 +1,20 @@
 package com.generation.blogpessoal.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -38,6 +42,10 @@ public class Postagem {
 	@ManyToOne
 	@JsonIgnoreProperties("postagens")
 	private Tema tema;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
 
 	public Long getId() {
 		return Id;
@@ -46,7 +54,7 @@ public class Postagem {
 	public void setId(Long id) {
 		Id = id;
 	}
-	
+
 	public String getTitulo() {
 		return titulo;
 	}
@@ -78,4 +86,14 @@ public class Postagem {
 	public void setTema(Tema tema) {
 		this.tema = tema;
 	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	
 }

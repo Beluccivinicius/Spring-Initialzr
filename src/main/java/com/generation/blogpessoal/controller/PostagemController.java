@@ -50,7 +50,7 @@ public class PostagemController {
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());	
 	}
 	
-	//Buscar por valor do título, utilizando o SELECT * FROM tb_postagem WHERE titulo Like 
+	//Buscar por valor do título, utilizando o SELECT * FROM tb_postagem WHERE titulo LIKE 
 	//"%alguma coisa%"
 	@GetMapping("titulo/{titulo}")
 	public ResponseEntity<List<Postagem>> getByTitulo(@PathVariable String titulo){
