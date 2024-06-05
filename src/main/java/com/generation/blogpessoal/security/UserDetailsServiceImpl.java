@@ -7,13 +7,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.generation.blogpessoal.model.Usuario;
 import com.generation.blogpessoal.repository.UsuarioRepository;
 
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+	//UserDetailsServiceImpl : Objetivo da classe: Verificar se o usuário 
+	//existe no banco de dados , faz a validação quando o usuário tentar 
+	//cadastrar um email que já existe por exemplo
+	
 	@Autowired
 	private UsuarioRepository usuarioRespository;
 	

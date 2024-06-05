@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -15,16 +16,19 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
+@Configuration
 @Component
 public class JwtService {
 
 	public static final String SECRET = "3b586f0cbcb09d32261f30f6ddd726c90a4c631a1a560c6486297875c6eddb5e";
 
+	//codifica o token para a base64 
 	private Key getSignKey() {
 		byte[] keyBytes = Decoders.BASE64.decode(SECRET);
 		return Keys.hmacShaKeyFor(keyBytes);
 	}
 
+	//Claims decodifica as informações do token
 	private Claims extractAllClaims(String token) {
 		return Jwts.parserBuilder()
 				.setSigningKey(getSignKey()).build()
@@ -53,6 +57,7 @@ public class JwtService {
 		return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
 	}
 
+	//cria o token
 	private String createToken(Map<String, Object> claims, String userName) {
 		return Jwts.builder()
 					.setClaims(claims)
@@ -61,7 +66,8 @@ public class JwtService {
 					.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
 					.signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
 	}
-
+	
+	//gera o token
 	public String generateToken(String userName) {
 		Map<String, Object> claims = new HashMap<>();
 		return createToken(claims, userName);
