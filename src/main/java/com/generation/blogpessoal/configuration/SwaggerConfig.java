@@ -25,18 +25,18 @@ public class SwaggerConfig {
 
 	@Bean
 	OpenAPI springBlogPessoalOpenAPI() {
-		return new OpenAPI().info(new Info()
+		return new OpenAPI()
+			.info(new Info()
 				.title("Projeto Blog pessoal do vinicius")
 				.description("Projeto realizado no bootcamp Generation")
 				.version("v0.0.1")
 				.license(new License()
 						.name("Vinicius Belucci")
 						.url("meu site - blog"))
-						.contact(new Contact()
+				.contact(new Contact()
 								.name("Vinicius Belucci")
-								.url("")
-								.email("vinicius.belucci@outlook.com")
-						.email("vinicius.belucci@outlook.com")))
+								.url("https://github.com/Beluccivinicius")
+								.email("vinicius.belucci@outlook.com")))
 				.externalDocs(new ExternalDocumentation()
 						.description("GitHub")
 						.url("https://github.com/Beluccivinicius/Spring-Initialzr"));
