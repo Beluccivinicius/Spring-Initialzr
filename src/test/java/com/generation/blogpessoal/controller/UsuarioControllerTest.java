@@ -37,7 +37,7 @@ public class UsuarioControllerTest {
 	void start() {
 		usuarioRepository.deleteAll();
 		
-		usuarioService.cadastrarUsuario(new Usuario(0L, "Root", "root@root", "rootroot", ""));
+		usuarioService.cadastrarUsuario(new Usuario(0L, "Root", "root@root.com", "rootroot", ""));
 		
 	}
 	
@@ -73,16 +73,16 @@ public class UsuarioControllerTest {
 	@Test
     @DisplayName("Atualizar usuario")
     public void atualizaUsuario() {
-        Optional<Usuario> cadastroUsuario =  usuarioService.cadastrarUsuario(new Usuario(0L,"Jorge Eduardo", "jojo@gmail.com", "jorjorjor", ""));
+        Optional<Usuario> usuarioCadastrado = usuarioService
+                .cadastrarUsuario(new Usuario(0L, "Erik", "erik@email.com", "123456789", ""));
 
-        Usuario atualizacaoUsuario = new Usuario(cadastroUsuario.get().getId(),"jôjó", "jojo@gmail.com", "jorjorjor", "");
+        Usuario usuarioUpdate = new Usuario(usuarioCadastrado.get().getId(), "Erik Faccipieri", "erik@email.com",
+                "123456789", "");
 
-        HttpEntity<Usuario> corpoRequisicao = new HttpEntity<Usuario>(atualizacaoUsuario);
+        HttpEntity<Usuario> corpoRequisicao = new HttpEntity<Usuario>(usuarioUpdate);
 
-        ResponseEntity<Usuario> corpoResposta = testRestTemplate
-                .withBasicAuth("root@root.com", "rootroot")
-                .exchange("/usuarios/atualizar", HttpMethod.PUT,
-                        corpoRequisicao, Usuario.class);
+        ResponseEntity<Usuario> corpoResposta = testRestTemplate.withBasicAuth("root@root.com", "rootroot")
+                .exchange("/usuarios/atualizar", HttpMethod.PUT, corpoRequisicao, Usuario.class);
 
         assertEquals(HttpStatus.OK, corpoResposta.getStatusCode());
     }
@@ -97,7 +97,7 @@ public class UsuarioControllerTest {
 				"Luciane Rocha", "lu@gmail.com", "lululu", ""));
 		
 		ResponseEntity<String> corpoResposta = testRestTemplate
-				.withBasicAuth("root@root", "rootroot")
+				.withBasicAuth("root@root.com", "rootroot")
 				.exchange("/usuarios/all", HttpMethod.GET,
 						null, String.class);
 		
