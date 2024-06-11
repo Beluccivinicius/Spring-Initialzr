@@ -51,7 +51,7 @@ public class TemaController {
 	public ResponseEntity<Tema> putPostagem(@Valid @RequestBody Tema tema){
 		
 		if(temaRepository.findById(tema.getId()).isEmpty()) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tema já existe!!", null);
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tema não identificado!!", null);
 		}
 		
 		return ResponseEntity.ok(temaRepository.save(tema));
