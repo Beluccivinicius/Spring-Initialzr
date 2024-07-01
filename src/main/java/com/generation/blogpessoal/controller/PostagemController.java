@@ -25,7 +25,7 @@ import com.generation.blogpessoal.repository.TemaRepository;
 import jakarta.validation.Valid;
 
 @RestController // Adicionando Controller na classe
-@RequestMapping("/Postagens") // declarando o end point
+@RequestMapping("/postagens") // declarando o end point
 @CrossOrigin(origins = "*", allowedHeaders = "*") // Adicionando headers
 public class PostagemController {
 	

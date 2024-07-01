@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 
 
 @RestController
-@RequestMapping("/Temas")
+@RequestMapping("/temas")
 @CrossOrigin(origins = "*", allowedHeaders = "*") // Adicionando headers
 public class TemaController {
 	
