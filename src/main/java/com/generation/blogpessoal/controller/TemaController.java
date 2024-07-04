@@ -60,12 +60,12 @@ public class TemaController {
 	
 	@PostMapping
 	public ResponseEntity<Tema> postTema(@Valid @RequestBody Tema tema){
-		if(!temaRepository.existsById(tema.getId())) {
+		// if(!temaRepository.existsById(tema.getId())) {
 			return ResponseEntity.ok(temaRepository.save(tema));
-		}
+		// }
 		
 //		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tema já existe!", null);
+		// throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tema já existe!", null);
 		
 	}
 	
